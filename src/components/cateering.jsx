@@ -11,54 +11,65 @@ const catering_information = [
     notice:
       "Not available in all locations. Contact ezCater with questions related to your order.",
     link: "/menu",
-    button: "order now",
+    button: "Order Now",
   },
   {
     name: "Host an Unforgettable Event with Group Dining",
     description:
-      "Ready to truly treat yourself and your guests to a top notch event with all your seafood favorites? Check-out our NEW group dining menus available only when you book your party of 12+ guests. Whether it’s a corporate gathering or a family get-together, Red Lobster offers a range of chef-curated, multi-course menus with pricing designed to fit every budget. All group dining menus include unlimited fountain drinks, iced tea, and our freshly baked Cheddar Bay Biscuits®. Let us help you plan your next event!",
+      "Ready to truly treat yourself and your guests to a top notch event with all your seafood favorites? Check-out our NEW group dining menus available only when you book your party of 12+ guests. Whether it’s a corporate gathering or a family get-together, Red Lobster offers a range of chef-curated, multi-course menus with pricing designed to fit every budget.",
     notice:
       "Not available in all locations. Contact ezCater with questions related to your order.",
     link: "/contact",
-    button: "contact use",
+    button: "Contact Us",
   },
 ];
 
 export default function Catering() {
   return (
-    <section className="font-roboto">
+    <section className="font-roboto bg-gray-50">
       <Nav />
-      <section className="relative h-[45vh] w-full bg-[url('/images/landingimages/chicken.jpg')] bg-cover bg-cente bg-repeat-no-repeat overflow-hidden  ">
-        {/* Black Gradient Overlay */}
+
+      {/* HERO */}
+      <section className="relative w-full min-h-[40vh] md:min-h-[50vh] bg-[url('/images/chicken.jpg')] bg-cover bg-center bg-no-repeat flex items-center">
+        
+        {/* Overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent"></div>
 
         {/* Text */}
-        <p className="relative z-10 text-8xl uppercase text-white font-bold p-6 tracking-wide ">
-          elevate your group's <span className="text-red-600">celebrations</span>
-        </p>
+        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 md:px-12">
+          <h1 className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl uppercase text-white font-bold tracking-wide leading-tight">
+            Elevate your group's{" "}
+            <span className="text-red-600">celebrations</span>
+          </h1>
+        </div>
       </section>
-      {/* Catering Content */}
-      <div className="max-w-6xl mx-auto px-6 py-12 space-y-12">
+
+      {/* CONTENT */}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-12 py-10 md:py-14 space-y-10">
         {catering_information.map((item, index) => (
           <div
             key={index}
-            className="bg-white shadow-md rounded-lg p-8 space-y-4"
+            className="bg-white shadow-lg rounded-lg p-6 md:p-8 space-y-4 hover:shadow-xl transition duration-300"
           >
-            {/* Main Header */}
-            <p className="lg:text-4xl text-2xl capitalize font-bold tracking-wide text-slate-900">
+            {/* Title */}
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-slate-900">
               {item.name}
-            </p>
+            </h2>
 
             {/* Description */}
-            <p className="text-slate-600 text-base ">{item.description}</p>
+            <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+              {item.description}
+            </p>
 
             {/* Notice */}
-            <p className="text-sm text-red-500 italic">{item.notice}</p>
+            <p className="text-xs sm:text-sm text-red-500 italic">
+              {item.notice}
+            </p>
 
-            {/* Call to Action */}
+            {/* CTA */}
             <Link
               to={item.link}
-              className="inline-block mt-4 px-6 py-3 bg-red-500 text-white rounded-md hover:bg-red-600 transition duration-300 uppercase"
+              className="inline-block mt-4 px-6 py-3 text-sm sm:text-base bg-red-500 text-white rounded-md hover:bg-red-600 transition duration-300 uppercase font-semibold"
             >
               {item.button}
             </Link>
@@ -66,7 +77,6 @@ export default function Catering() {
         ))}
       </div>
 
-      {/* Footer */}
       <Footer />
     </section>
   );
