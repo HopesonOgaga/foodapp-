@@ -8,6 +8,10 @@ import About from "./components/about";
 import Signup from "./auth/signup";
 import Login from "./auth/login";
 import Cart from "./components/cart";
+import Bevarage from "./components/beverages";
+import Meals from "./components/meals";
+import Desert from "./components/desert";
+import KidsMeal from "./components/kids";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -22,23 +26,39 @@ export const router = createBrowserRouter([
     element: <Menu></Menu>,
   },
   {
-    path:"/catering",
-    element:<Catering></Catering>
+    path: "/catering",
+    element: <Catering></Catering>,
   },
   {
-    path:"/about",
-    element:<About></About>
-  }
-  ,{
-    path:"/signup",
-    element:<Signup></Signup>
-  }
-  ,{
-    path:"/login",
-    element:<Login></Login>
-  }
-  ,{
-    path:"/cart",
-    element:<Cart></Cart>
-  }
+    path: "/about",
+    element: <About></About>,
+  },
+  {
+    path: "/signup",
+    element: <Signup></Signup>,
+  },
+  {
+    path: "/login",
+    element: <Login></Login>,
+  },
+  {
+    path: "/cart",
+    element: <Cart></Cart>,
+  },
+  {
+    path: "/beverage",
+    element: <Bevarage></Bevarage>,
+  },
+  {
+    path: "/meals",
+    element: <Meals></Meals>,
+  },
+  {
+    path: "desert",
+    element: <Desert></Desert>,
+  },
+  {
+    path: "kids",
+    element: <KidsMeal></KidsMeal>,
+  },
 ]);

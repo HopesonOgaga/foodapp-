@@ -8,22 +8,22 @@ export default function Menu() {
     {
       name: "beverages",
       image: "/images/menu/Berry lemonade mocktails.jpg",
-      link: "/menu/beverages",
+      link: "/beverage",
     },
     {
       name: "dessert",
       image: "/images/landingimages/pizza.jpg", // Added a fallback placeholder
-      link: "/menu/dessert",
+      link: "/desert",
     },
     {
       name: "family meals",
       image: "/images/menu/jollofe.jpg",
-      link: "/menu/family-meals",
+      link: "/meals",
     },
     {
       name: "kids meals",
       image: "/images/menu/bite.jpg",
-      link: "/menu/kids-meals",
+      link: "/kids",
     },
   ];
 
@@ -66,7 +66,7 @@ export default function Menu() {
           </Link>
         ))}
       </div>
-    </section>\
+    </section>
     <Footer></Footer>
     </>
   );
