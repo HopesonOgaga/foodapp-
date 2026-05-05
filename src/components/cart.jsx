@@ -3,58 +3,18 @@ import { Plus, Minus, Trash2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import Nav from "../constant/nav";
 import Footer from "../constant/footer";
+import { useCart } from "../constant/CartContext";
 
 export default function Cart() {
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      name: "Jollof Rice & Chicken",
-      price: 4500,
-      quantity: 1,
-      image: "/images/jollof.jpg",
-    },
-    {
-      id: 2,
-      name: "Fried Rice & Turkey",
-      price: 5000,
-      quantity: 2,
-      image: "/images/fried-rice.jpg",
-    },
-  ]);
-
-  // Update quantity
-  const updateQuantity = (id, type) => {
-    setCartItems((items) =>
-      items
-        .map((item) =>
-          item.id === id
-            ? {
-                ...item,
-                quantity:
-                  type === "increase"
-                    ? item.quantity + 1
-                    : Math.max(1, item.quantity - 1),
-              }
-            : item
-        )
-    );
-  };
-
-  // Remove item
-  const removeItem = (id) => {
-    setCartItems((items) => items.filter((item) => item.id !== id));
-  };
+  const { cartItems, updateQuantity, removeItem } = useCart();
 
   // Totals
   const totalPrice = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
-    0
+    0,
   );
 
-  const totalItems = cartItems.reduce(
-    (sum, item) => sum + item.quantity,
-    0
-  );
+  const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   // Empty Cart State
   if (cartItems.length === 0) {
@@ -93,8 +53,8 @@ export default function Cart() {
               Shopping Cart
             </h1>
             <p className="text-gray-500 mt-2">
-              You have <span className="font-semibold">{totalItems}</span>{" "}
-              item{totalItems > 1 && "s"} in your tray
+              You have <span className="font-semibold">{totalItems}</span> item
+              {totalItems > 1 && "s"} in your tray
             </p>
           </div>
 
@@ -123,8 +83,7 @@ export default function Cart() {
                       ₦{item.price.toLocaleString()}
                     </p>
                     <p className="text-sm text-gray-500 mt-1">
-                      Subtotal: ₦
-                      {(item.price * item.quantity).toLocaleString()}
+                      Subtotal: ₦{(item.price * item.quantity).toLocaleString()}
                     </p>
                   </div>
 

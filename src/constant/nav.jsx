@@ -7,7 +7,7 @@ const navLinks = [
   { name: "About", path: "/about" },
   { name: "Menu", path: "/menu" },
   { name: "Catering", path: "/catering" },
-  { name: "Contact", path: "/contact" },
+  { name: "Contact", path: "/" },
 ];
 
 export default function Nav() {

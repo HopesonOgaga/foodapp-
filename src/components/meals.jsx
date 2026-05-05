@@ -2,62 +2,73 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Nav from "../constant/nav";
 import Footer from "../constant/footer";
+import { useCart } from "../constant/CartContext";
 
 export default function Meals() {
+  const { addToCart } = useCart();
   const menuItems = [
     {
+      id: "mel-1",
       name: "Cappuccino",
       image: "/images/meals/meals (1).jpg",
       link: "",
-      price: "₦8,500",
+      price: 8500,
       description: "A smooth blend of espresso, steamed milk, and rich foam.",
       button: "Add to Cart",
     },
     {
+      id: "mel-2",
       name: "Chocolate Milkshake",
-      image:  "/images/meals/meals (2).jpg",
+      image: "/images/meals/meals (2).jpg",
       link: "",
-      price: "₦8,500",
-      description: "Thick and creamy chocolate shake topped with whipped cream.",
+      price: 8500,
+      description:
+        "Thick and creamy chocolate shake topped with whipped cream.",
       button: "Add to Cart",
     },
     {
+      id: "mel-3",
       name: "Fanta Orange",
-      image:  "/images/meals/meals (3).jpg",
+      image: "/images/meals/meals (3).jpg",
       link: "",
-      price: "₦3,500",
+      price: 3500,
       description: "Chilled citrus soda with a refreshing orange taste.",
       button: "Add to Cart",
     },
     {
+      id: "mel-4",
       name: "Strawberry Smoothie",
-      image:  "/images/meals/meals (4).jpg",
+      image: "/images/meals/meals (4).jpg",
       link: "",
-      price: "₦9,000",
-      description: "Fresh strawberries blended into a naturally sweet smoothie.",
+      price: 9000,
+      description:
+        "Fresh strawberries blended into a naturally sweet smoothie.",
       button: "Add to Cart",
     },
     {
+      id: "mel-5",
       name: "Iced Latte",
-      image:  "/images/meals/meals (5).jpg",
+      image: "/images/meals/meals (5).jpg",
       link: "",
-      price: "₦7,500",
+      price: 7500,
       description: "Cold espresso mixed with milk and served over ice.",
       button: "Add to Cart",
     },
     {
+      id: "mel-6",
       name: "Vanilla Milkshake",
-      image:  "/images/meals/meals (6).jpg",
+      image: "/images/meals/meals (6).jpg",
       link: "",
-      price: "₦8,000",
+      price: 8000,
       description: "Classic vanilla shake with a smooth and creamy texture.",
       button: "Add to Cart",
     },
     {
+      id: "mel-7",
       name: "Energy Drink",
       image: "/images/meals/meals (7).jpg",
       link: "",
-      price: "₦5,000",
+      price: 5000,
       description: "A refreshing boost to keep you energized.",
       button: "Add to Cart",
     },
@@ -99,15 +110,21 @@ export default function Meals() {
                 </p>
 
                 <p className="mt-3 font-semibold text-red-600 text-lg">
-                  {item.price}
+                   ₦{item.price.toLocaleString()}
                 </p>
 
                 {/* underline */}
                 <div className="h-[2px] w-0 bg-red-600 mx-auto mt-2 rounded-full transition-all duration-300 group-hover:w-12"></div>
 
                 {/* Button */}
-                <button className="mt-5 bg-red-600 text-white text-sm font-semibold py-2 rounded-md hover:bg-black transition duration-300">
-                  {item.button}
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    addToCart(item);
+                  }}
+                  className="mt-5 bg-red-600 text-white text-sm font-semibold py-2 rounded-md hover:bg-red-400 active:bg-red-800 transition duration-300"
+                >
+                  Add to Cart
                 </button>
               </div>
             </Link>
