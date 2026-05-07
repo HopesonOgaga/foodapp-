@@ -5,6 +5,7 @@ import Nav from "../constant/nav";
 import Footer from "../constant/footer";
 import { useCart } from "../constant/CartContext";
 
+
 export default function Cart() {
   const { cartItems, updateQuantity, removeItem } = useCart();
 
