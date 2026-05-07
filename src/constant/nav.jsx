@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Menu, X, ShoppingCart } from "lucide-react";
 import { useCart } from "../constant/CartContext";
+import { useAuth } from "../auth/authContext";
+import { supabase } from "../supabase";
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -16,6 +18,9 @@ export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
 
   const { cartItems } = useCart();
+  const { user } = useAuth();
+
+  const navigate = useNavigate();
 
   // ✅ REAL-TIME CART COUNT
   const totalItems = cartItems.reduce(
@@ -27,14 +32,25 @@ export default function Nav() {
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll);
+
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   // Lock body when menu open
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
-    return () => (document.body.style.overflow = "");
+
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [isOpen]);
+
+  // ✅ LOGOUT FUNCTION
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    navigate("/");
+    setIsOpen(false);
+  };
 
   const linkBase =
     "text-xs font-medium tracking-widest uppercase transition";
@@ -50,7 +66,7 @@ export default function Nav() {
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-10 h-[72px] flex items-center justify-between">
-          
+
           {/* LOGO */}
           <Link to="/" className="flex items-center gap-3">
             <img
@@ -58,6 +74,7 @@ export default function Nav() {
               alt="Ella"
               className="w-10 h-10 rounded-full object-cover border border-red-200"
             />
+
             <span className="font-serif text-2xl text-neutral-800">
               Ella<span className="text-red-600">.</span>
             </span>
@@ -85,14 +102,25 @@ export default function Nav() {
 
           {/* DESKTOP ACTIONS */}
           <div className="hidden lg:flex items-center gap-3">
-            <Link
-              to="/login"
-              className="text-xs uppercase border px-4 py-2 text-neutral-500 hover:text-red-600 hover:border-red-400"
-            >
-              Login
-            </Link>
 
-            {/* CART (REAL-TIME COUNT) */}
+            {/* ✅ SHOW LOGIN ONLY WHEN LOGGED OUT */}
+            {!user ? (
+              <Link
+                to="/login"
+                className="text-xs uppercase border px-4 py-2 text-neutral-500 hover:text-red-600 hover:border-red-400"
+              >
+                Login
+              </Link>
+            ) : (
+              <button
+                onClick={handleLogout}
+                className="text-xs uppercase border px-4 py-2 text-neutral-500 hover:text-red-600 hover:border-red-400"
+              >
+                Logout
+              </button>
+            )}
+
+            {/* CART */}
             <Link
               to="/cart"
               className="relative flex items-center gap-2 bg-red-600 text-white px-4 py-2 text-xs uppercase"
@@ -110,7 +138,7 @@ export default function Nav() {
 
           {/* MOBILE RIGHT SIDE */}
           <div className="lg:hidden flex items-center gap-3">
-            
+
             {/* MOBILE CART */}
             <Link
               to="/cart"
@@ -181,14 +209,26 @@ export default function Nav() {
 
         {/* FOOTER */}
         <div className="flex flex-col gap-3">
-          <Link
-            to="/login"
-            onClick={() => setIsOpen(false)}
-            className="border py-3 text-center text-xs uppercase"
-          >
-            Login
-          </Link>
 
+          {/* ✅ LOGIN / LOGOUT */}
+          {!user ? (
+            <Link
+              to="/login"
+              onClick={() => setIsOpen(false)}
+              className="border py-3 text-center text-xs uppercase"
+            >
+              Login
+            </Link>
+          ) : (
+            <button
+              onClick={handleLogout}
+              className="border py-3 text-center text-xs uppercase"
+            >
+              Logout
+            </button>
+          )}
+
+          {/* CART */}
           <Link
             to="/cart"
             onClick={() => setIsOpen(false)}

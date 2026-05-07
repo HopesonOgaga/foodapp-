@@ -4,9 +4,11 @@ import { Link } from "react-router-dom";
 import Nav from "../constant/nav";
 import Footer from "../constant/footer";
 import { useCart } from "../constant/CartContext";
-
+import { useAuth } from "../auth/authContext";
+import { supabase } from "../supabase";
 
 export default function Cart() {
+  const { user } = useAuth();
   const { cartItems, updateQuantity, removeItem } = useCart();
 
   // Totals
@@ -151,9 +153,29 @@ export default function Cart() {
                   </div>
                 </div>
 
-                <button className="w-full bg-red-600 text-white py-3 sm:py-4 rounded-xl font-bold text-lg hover:bg-red-700 transition active:scale-[0.98]">
-                  Proceed to Checkout
-                </button>
+                {/* CHECKOUT BUTTON */}
+
+                {user ? (
+                  <button className="w-full bg-red-600 text-white py-3 sm:py-4 rounded-xl font-bold text-lg hover:bg-red-700 transition active:scale-[0.98]">
+                    Proceed to Checkout
+                  </button>
+                ) : (
+                  <div className="space-y-3">
+                    <button
+                      disabled
+                      className="w-full bg-gray-300 text-gray-500 py-3 sm:py-4 rounded-xl font-bold text-lg cursor-not-allowed"
+                    >
+                      Login Required
+                    </button>
+
+                    <Link
+                      to="/login"
+                      className="block text-center w-full border border-red-600 text-red-600 py-3 rounded-xl font-semibold hover:bg-red-50 transition"
+                    >
+                      Sign in to Checkout
+                    </Link>
+                  </div>
+                )}
 
                 <Link
                   to="/menu"
