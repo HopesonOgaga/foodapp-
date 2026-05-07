@@ -13,6 +13,7 @@ import Meals from "./components/meals";
 import Desert from "./components/desert";
 import KidsMeal from "./components/kids";
 import TestOrder from "./page/test";
+import MenuCategory from "./components/menuategory";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -61,8 +62,9 @@ export const router = createBrowserRouter([
   {
     path: "kids",
     element: <KidsMeal></KidsMeal>,
-  },{
-    path:"test",
-    element:<TestOrder></TestOrder>
+  },
+  {
+    path:"menuu",
+    element:<MenuCategory></MenuCategory>
   }
 ]);

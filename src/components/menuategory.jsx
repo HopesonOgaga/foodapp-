@@ -5,7 +5,7 @@ import Footer from "../constant/footer";
 import { useCart } from "../constant/CartContext";
 import { supabase } from "../supabase";
 
-export default function Meals() {
+export default function MenuCategory({ category }) {
   const { addToCart } = useCart();
 
   const [menuItems, setMenuItems] = useState([]);
@@ -13,7 +13,7 @@ export default function Meals() {
 
   useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [category]);
 
   const fetchProducts = async () => {
     setLoading(true);
@@ -21,11 +21,9 @@ export default function Meals() {
     const { data, error } = await supabase
       .from("products")
       .select("*")
-      .eq("category", "desserts");
+      .eq("category", category);
 
-    if (error) {
-      console.log(error);
-    } else {
+    if (!error) {
       setMenuItems(data);
     }
 
@@ -38,16 +36,16 @@ export default function Meals() {
 
       <section className="bg-gray-50 py-16 px-6 md:px-12">
         {loading ? (
-          <div className="text-center py-20 text-gray-500 text-lg">
+          <div className="text-center py-20 text-gray-500">
             Loading menu...
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
             {menuItems.map((item) => (
-              <div
+              <Link
+                to={item.link || ""}
                 key={item.id}
-                className="group bg-white rounded-lg shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden border border-gray-100 flex flex-col cursor-pointer"
-                onClick={() => addToCart(item)}
+                className="group bg-white rounded-lg shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden border border-gray-100 flex flex-col"
               >
                 {/* Image */}
                 <div className="relative h-64 w-full overflow-hidden">
@@ -77,12 +75,13 @@ export default function Meals() {
                     ₦{Number(item.price).toLocaleString()}
                   </p>
 
+                  {/* underline */}
                   <div className="h-[2px] w-0 bg-red-600 mx-auto mt-2 rounded-full transition-all duration-300 group-hover:w-12"></div>
 
-                  {/* Button (optional but still same action) */}
+                  {/* Button */}
                   <button
                     onClick={(e) => {
-                      e.stopPropagation(); // prevents double trigger
+                      e.preventDefault();
                       addToCart(item);
                     }}
                     className="mt-5 bg-red-600 text-white text-sm font-semibold py-2 rounded-md hover:bg-red-400 active:bg-red-800 transition duration-300"
@@ -90,7 +89,7 @@ export default function Meals() {
                     Add to Cart
                   </button>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         )}

@@ -53,7 +53,9 @@ export default function Index() {
               </span>
             </p>
 
-            <button className="px-6 sm:px-8 py-3 text-sm sm:text-base uppercase rounded-md bg-white text-red-600 font-bold hover:bg-gray-100 transition-all duration-300 active:scale-95">
+            <button
+              className="px-6 sm:px-8 py-3 text-sm sm:text-base uppercase rounded-md bg-white text-red-600 font-bold hover:bg-gray-100 transition-all duration-300 active:scale-95"
+            >
               Order Now
             </button>
           </div>
