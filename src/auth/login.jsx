@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { supabase } from "../supabase";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -36,11 +36,9 @@ export default function Login() {
   return (
     <section className="min-h-screen bg-white">
       <div className="flex flex-col lg:flex-row w-full min-h-screen">
-
         {/* Left Side: Form */}
         <div className="flex flex-1 flex-col justify-center px-8 py-12 sm:px-12 lg:flex-none lg:px-24 xl:px-32">
           <div className="mx-auto w-full max-w-sm lg:w-96">
-
             <div>
               <h2 className="text-3xl font-bold tracking-tight text-gray-900">
                 Sign in to your account
@@ -48,23 +46,17 @@ export default function Login() {
 
               <p className="mt-2 text-sm text-gray-600">
                 Not a member?{" "}
-                <a
-                  href="/signup"
-                  className="font-medium text-orange-600 hover:text-orange-500 transition-colors"
-                >
-                  create an account
-                </a>
+                <Link to={"/signup"}>
+                  <p className="font-medium text-orange-600 hover:text-orange-500 transition-colors">
+                    create an account{" "}
+                  </p>
+                </Link>
               </p>
             </div>
 
             <div className="mt-10">
-
               {/* ✅ FORM */}
-              <form
-                onSubmit={handleLogin}
-                className="space-y-6"
-              >
-
+              <form onSubmit={handleLogin} className="space-y-6">
                 {/* EMAIL */}
                 <div>
                   <label
@@ -151,7 +143,6 @@ export default function Login() {
                     {loading ? "Signing in..." : "Sign in"}
                   </button>
                 </div>
-
               </form>
             </div>
           </div>
@@ -179,7 +170,6 @@ export default function Login() {
             </div>
           </div>
         </div>
-
       </div>
     </section>
   );
